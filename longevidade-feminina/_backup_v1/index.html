@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Despertar da Longevidade Feminina</title>
+
+    <!-- Google Fonts: Cormorant Garamond & Jost -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Lenis & GSAP -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Ambient Background (Botanical + Spotlight) -->
+    <div class="ambient-background">
+        <div class="ambient-image"></div>
+        <div class="ambient-overlay"></div>
+        <div class="magnetic-spotlight" id="spotlight"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="scroll-container">
+
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <span class="eyebrow fade-up">Imersão Presencial • 28 de Março</span>
+                <h1 class="hero-title fade-up">
+                    <span class="italic-serif">O Despertar</span><br>
+                    da Longevidade<br>
+                    <span class="italic-serif">Feminina</span>
+                </h1>
+
+                <p class="hero-description fade-up">
+                    Vou passar um dia inteiro ao seu lado para identificarmos a causa raiz das suas queixas de saúde.
+                    Vamos desenhar um protocolo médico e fisiológico para devolver a sua qualidade de vida utilizando
+                    recursos naturais e reduzindo drasticamente a dependência de medicamentos.
+                </p>
+
+                <div class="hero-pillars fade-up">
+                    <span>Energia e Disposição</span>
+                    <span class="dot">•</span>
+                    <span>Sono e Equilíbrio</span>
+                    <span class="dot">•</span>
+                    <span>Controle da Inflamação</span>
+                    <span class="dot">•</span>
+                    <span>Saúde Feminina</span>
+                </div>
+
+                <div class="hero-action fade-up">
+                    <a href="#garantir" class="btn-primary">
+                        <span class="btn-text">Garantir meu ingresso</span>
+                        <div class="btn-glow"></div>
+                    </a>
+                    <div class="action-notes">
+                        <span class="note">60% do lote 01 preenchido</span>
+                        <span class="note secure">🔒 Compra 100% segura</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scroll-indicator">
+                <div class="mouse"></div>
+                <span>Descobrir</span>
+            </div>
+        </section>
+
+        <!-- Section 2: O Agravamento -->
+        <section class="section-aggravation" id="section-2">
+            <div class="glass-container gsap-reveal">
+                <div class="grid-layout">
+                    <div class="text-column">
+                        <h2 class="section-title">
+                            <span>A Falsa Culpa</span>
+                            <span class="italic-serif highlight">da Idade</span>
+                        </h2>
+
+                        <div class="content-block">
+                            <h3 class="subtitle">O motivo dos sintomas que você sente hoje não é o envelhecimento. Há um
+                                incêndio crônico no seu corpo.</h3>
+
+                            <p class="body-text">Se você passou dos 35 anos, já deve ter notado que o seu organismo
+                                deixou de responder aos mesmos estímulos do passado. Acordar cansada virou a norma. O
+                                peso estagnou. Dores articulares e pequenas doenças começam a surgir sem aviso, e a
+                                clareza mental deu lugar a uma constante névoa de confusão e esquecimento.</p>
+
+                            <p class="body-text">O protocolo da medicina tradicional é olhar para o seu quadro clínico e
+                                afirmar categoricamente: <span class="quote">"Isso é normal da idade."</span> E assim,
+                                você recebe mais uma prescrição. Uma pílula para forçar o sono, um analgésico para o
+                                desconforto, um protetor gástrico para suportar os medicamentos anteriores.</p>
+
+                            <div class="highlight-box">
+                                <p>A inflamação crônica está comprometendo o funcionamento básico das suas células e
+                                    desregulando o seu painel hormonal de forma drástica.</p>
+                            </div>
+
+                            <p class="body-text">Nós vamos resgatar a sua autonomia fisiológica. É o fim da
+                                sobrevivência mitigada por remédios e o retorno à saúde plena e vigorosa.</p>
+                        </div>
+                    </div>
+
+                    <div class="visual-column">
+                        <div class="abstract-shape">
+                            <div class="inner-glow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lenis Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Magnetic Spotlight Effect (Hero)
+        const spotlight = document.getElementById('spotlight');
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let spotlightX = mouseX;
+        let spotlightY = mouseY;
+
+        // Smooth follow
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateSpotlight() {
+            // Lerp for smooth magnetic effect
+            spotlightX += (mouseX - spotlightX) * 0.05;
+            spotlightY += (mouseY - spotlightY) * 0.05;
+
+            if (spotlight) {
+                spotlight.style.transform = `translate(${spotlightX}px, ${spotlightY}px) translate(-50%, -50%)`;
+            }
+            requestAnimationFrame(animateSpotlight);
+        }
+        animateSpotlight();
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Entrance (No trigger needed)
+        const heroTl = gsap.timeline({ defaults: { ease: "power4.out" } });
+
+        heroTl.fromTo('.fade-up',
+            { y: 60, opacity: 0, filter: 'blur(10px)' },
+            { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.5, stagger: 0.15, clearProps: 'all' }
+        );
+
+        // Parallax Ambient Background
+        gsap.to('.ambient-image', {
+            y: "20%",
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".scroll-container",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // Section 2 Glass Container Reveal
+        gsap.fromTo('.gsap-reveal',
+            { y: 100, opacity: 0, scale: 0.95 },
+            {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: '#section-2',
+                    start: 'top 80%',
+                }
+            }
+        );
+
+        // Magnetic Button Effect
+        const btn = document.querySelector('.btn-primary');
+        const btnGlow = document.querySelector('.btn-glow');
+
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            btnGlow.style.left = `${x}px`;
+            btnGlow.style.top = `${y}px`;
+            btnGlow.style.opacity = '1';
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            btnGlow.style.opacity = '0';
+        });
+
+    </script>
+</body>
+
+</html>

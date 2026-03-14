@@ -1,0 +1,458 @@
+/*
+ * DIRETRIZ GLOBAL: Minimalismo Orgânico e Medicina Premium
+ * ARQUÉTIPO SEÇÃO 1: Vast Negative Space + Editorial Asymmetry
+ * CONSTRAINTS: Light Mode (Off-White/Nude/Olive) + Rhythmic Motion
+ * FONT PAIRING: Gilda Display (Regular) + Libre Franklin (300/400)
+ */
+
+:root {
+    --color-bg: #f9f8f6;
+    /* Off-white orgânico */
+    --color-surface: #ffffff;
+    --color-text: #2f3e36;
+    /* Olive Dark (Natureza/Medicina) */
+    --color-text-muted: #5c6b63;
+    --color-accent: #bda792;
+    /* Warm Nude / Soft Gold */
+    --color-accent-dark: #8c7b6c;
+
+    --font-heading: 'Gilda Display', serif;
+    --font-body: 'Libre Franklin', sans-serif;
+
+    --container-width: 1400px;
+    --spacing-xl: clamp(6rem, 15vw, 15rem);
+    --spacing-lg: clamp(4rem, 8vw, 8rem);
+    --spacing-md: clamp(2rem, 4vw, 4rem);
+
+    --ease-editorial: cubic-bezier(0.85, 0, 0.15, 1);
+}
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html.lenis {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+/* Typography Classes */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+}
+
+.serif-elegant {
+    font-family: var(--font-heading);
+    font-style: normal;
+    color: var(--color-accent-dark);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Header */
+.site-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--spacing-md);
+    z-index: 50;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.logo-container {
+    width: 180px;
+    mix-blend-mode: multiply;
+    /* Para remover fundo branco da imagem caso exista */
+}
+
+.brand-logo {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Ambient Background Formas Orgânicas */
+.ambient-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.organic-blob {
+    position: absolute;
+    filter: blur(80px);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: drift 20s infinite alternate ease-in-out;
+}
+
+.organic-blob.id-1 {
+    width: 60vw;
+    height: 60vw;
+    background: var(--color-accent);
+    top: -20%;
+    right: -10%;
+}
+
+.organic-blob.id-2 {
+    width: 50vw;
+    height: 50vw;
+    background: #e6e3da;
+    bottom: -10%;
+    left: -20%;
+    animation-delay: -10s;
+}
+
+@keyframes drift {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(-5vw, 10vh) scale(1.1);
+    }
+}
+
+/* Scroll Container */
+.scroll-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+}
+
+/* Hero Section (Vast Negative Space) */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--spacing-md);
+    position: relative;
+    padding-top: calc(var(--spacing-lg) + 80px);
+    /* Espaço pro logo */
+    overflow: visible;
+}
+
+.hero-layout {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    align-items: center;
+    width: 100%;
+}
+
+.hero-text-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 600px;
+    z-index: 2;
+}
+
+.eyebrow {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--color-accent-dark);
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.eyebrow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: 40px;
+    height: 1px;
+    background-color: var(--color-accent-dark);
+    margin-right: 15px;
+    opacity: 0.6;
+}
+
+.hero-title {
+    font-size: clamp(3.5rem, 6vw, 6.5rem);
+    line-height: 1;
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+}
+
+.hero-description {
+    font-size: clamp(1rem, 1.2vw, 1.15rem);
+    color: var(--color-text-muted);
+    font-weight: 300;
+    margin-bottom: 3.5rem;
+    line-height: 1.8;
+}
+
+/* Button */
+.hero-action {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.btn-primary {
+    position: relative;
+    padding: 1.2rem 3rem;
+    background: var(--color-text);
+    color: var(--color-surface);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.5s var(--ease-editorial);
+    border: none;
+    border-radius: 4px;
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-accent-dark);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s var(--ease-editorial);
+    z-index: 1;
+}
+
+.btn-primary:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.btn-text {
+    position: relative;
+    z-index: 2;
+}
+
+.action-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+.action-notes .secure {
+    color: var(--color-accent-dark);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Hero Image Column / Parallax */
+.hero-image-column {
+    height: 80vh;
+    min-height: 600px;
+    border-radius: 200px 200px 0 0;
+    /* Arco arquitetônico (Arch window) */
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 40px 100px rgba(47, 62, 54, 0.08);
+}
+
+.image-mask {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.hero-img {
+    width: 100%;
+    height: 130%;
+    /* Offset for parallax */
+    object-fit: cover;
+    display: block;
+    transform: translateY(-10%);
+}
+
+/* Scroll Indicator (Refined Line) */
+.scroll-indicator {
+    position: absolute;
+    bottom: 0;
+    left: var(--spacing-md);
+    width: 1px;
+    height: 100px;
+    background: rgba(47, 62, 54, 0.1);
+    overflow: hidden;
+}
+
+.line-drop {
+    display: block;
+    width: 100%;
+    height: 0;
+    background: var(--color-accent-dark);
+}
+
+/* Section 2: O Agravamento (Editorial Asymmetry) */
+.section-aggravation {
+    padding: var(--spacing-xl) var(--spacing-md);
+    background-color: var(--color-surface);
+    position: relative;
+    z-index: 2;
+}
+
+.content-wrapper {
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+.split-editorial {
+    display: grid;
+    grid-template-columns: 4fr 6fr;
+    gap: var(--spacing-xl);
+    align-items: start;
+}
+
+.split-left {
+    position: sticky;
+    top: var(--spacing-md);
+}
+
+.split-left .section-title {
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    line-height: 1;
+    color: var(--color-text);
+    margin-bottom: 2rem;
+}
+
+.abstract-line {
+    width: 60px;
+    height: 1px;
+    background: var(--color-text);
+}
+
+.split-right {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 2rem;
+    /* Alinhamento óptico */
+}
+
+.subtitle {
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+    line-height: 1.4;
+    color: var(--color-accent-dark);
+    margin-bottom: 1rem;
+    max-width: 800px;
+}
+
+.body-text {
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+    max-width: 650px;
+}
+
+.body-text .quote {
+    color: var(--color-text);
+    font-style: normal;
+    font-weight: 500;
+}
+
+.highlight-box {
+    margin: 2rem 0;
+    padding: 3rem;
+    background: var(--color-bg);
+    border-left: 2px solid var(--color-accent);
+}
+
+.highlight-box p {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--color-text);
+    line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+    }
+
+    .hero-image-column {
+        height: 60vh;
+        border-radius: 24px;
+        /* Substitui o arco por um card suave no mobile */
+    }
+
+    .split-editorial {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+    }
+
+    .split-left {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-header {
+        justify-content: center;
+    }
+
+    .hero-action {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+
+    .highlight-box {
+        padding: 2rem 1.5rem;
+    }
+}
