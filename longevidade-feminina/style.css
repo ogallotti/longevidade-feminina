@@ -2114,15 +2114,20 @@ a {
 }
 
 .pillar-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: rgba(209, 140, 131, 0.15);
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: var(--color-accent);
+}
+
+.pillar-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .what-pillar span {
@@ -2189,11 +2194,13 @@ a {
 }
 
 .marquee-inner img {
-    height: 260px;
+    height: 320px;
     width: auto;
+    max-width: 280px;
     border-radius: 16px;
     flex-shrink: 0;
     object-fit: cover;
+    object-position: top center;
     box-shadow: 0 8px 30px rgba(74, 27, 56, 0.08);
     transition: transform 0.4s var(--ease-elegant);
 }
@@ -2206,6 +2213,7 @@ a {
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(-50%);
     }
@@ -2262,13 +2270,25 @@ a {
 }
 
 @keyframes urgencyPulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.8; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
 }
 
 @keyframes urgencyShimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 .urgency-label {
