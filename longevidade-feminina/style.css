@@ -2194,13 +2194,10 @@ a {
 }
 
 .marquee-inner img {
-    height: 320px;
+    height: 180px;
     width: auto;
-    max-width: 280px;
-    border-radius: 16px;
+    border-radius: 12px;
     flex-shrink: 0;
-    object-fit: cover;
-    object-position: top center;
     box-shadow: 0 8px 30px rgba(74, 27, 56, 0.08);
     transition: transform 0.4s var(--ease-elegant);
 }
