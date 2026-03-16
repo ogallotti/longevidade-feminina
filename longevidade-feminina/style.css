@@ -2185,11 +2185,11 @@ a {
     display: flex;
     gap: 1.5rem;
     width: max-content;
-    animation: marqueeScroll 40s linear infinite;
+    animation: marqueeScroll 80s linear infinite;
 }
 
 .marquee-inner img {
-    height: 380px;
+    height: 260px;
     width: auto;
     border-radius: 16px;
     flex-shrink: 0;
@@ -2213,7 +2213,7 @@ a {
 
 @media (max-width: 768px) {
     .marquee-inner img {
-        height: 280px;
+        height: 200px;
     }
 
     .marquee-inner {
