@@ -2206,6 +2206,10 @@ a {
     transform: scale(1.03);
 }
 
+.marquee-track:hover .marquee-inner {
+    animation-play-state: paused;
+}
+
 @keyframes marqueeScroll {
     0% {
         transform: translateX(0);
@@ -2223,6 +2227,7 @@ a {
 
     .marquee-inner {
         gap: 1rem;
+        animation-duration: 120s;
     }
 }
 

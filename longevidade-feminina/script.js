@@ -378,6 +378,13 @@ function initMarquee() {
     // Duplicate items for seamless loop
     const items = inner.innerHTML;
     inner.innerHTML = items + items;
+
+    // Pause on touch (mobile)
+    const track = document.querySelector('.marquee-track');
+    if (track) {
+        track.addEventListener('touchstart', () => inner.style.animationPlayState = 'paused', { passive: true });
+        track.addEventListener('touchend', () => inner.style.animationPlayState = 'running', { passive: true });
+    }
 }
 
 /* --- Smooth Scroll for CTAs --- */
