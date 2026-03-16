@@ -2218,7 +2218,7 @@ a {
 
 @media (max-width: 768px) {
     .marquee-inner img {
-        height: 200px;
+        height: 80px;
     }
 
     .marquee-inner {
