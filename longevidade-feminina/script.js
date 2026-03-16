@@ -210,6 +210,50 @@ function initFAQ() {
 }
 
 /* ============================================
+   META CAPI (Server-Side Events)
+   ============================================ */
+function generateEventId() {
+    return 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
+}
+
+function sendCAPIEvent(eventName, userData, customData) {
+    const eventId = generateEventId();
+
+    // Browser pixel (with event_id for dedup)
+    if (typeof fbq !== 'undefined') {
+        fbq('track', eventName, customData || {}, { eventID: eventId });
+    }
+
+    // Server-side CAPI
+    const payload = {
+        event_name: eventName,
+        event_id: eventId,
+        source_url: window.location.href,
+        fbc: getCookie('_fbc') || null,
+        fbp: getCookie('_fbp') || null,
+    };
+
+    if (userData) {
+        if (userData.email) payload.email = userData.email;
+        if (userData.phone) payload.phone = userData.phone;
+    }
+    if (customData) payload.custom_data = customData;
+
+    fetch('/.netlify/functions/meta-capi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+    }).catch(err => console.warn('CAPI send error:', err));
+
+    return eventId;
+}
+
+/* ============================================
    PRE-CHECKOUT MODAL & FORM
    ============================================ */
 
@@ -346,7 +390,7 @@ function initForms() {
                     return;
                 }
 
-                if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+                sendCAPIEvent('Lead', { email, phone: telefone }, { currency: 'BRL', value: 47.00 });
                 if (typeof dataLayer !== 'undefined') dataLayer.push({ event: 'generate_lead' });
 
                 const params = new URLSearchParams(window.location.search);
@@ -432,4 +476,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Marquee & Smooth Scroll
     initMarquee();
     initSmoothScroll();
+
+    // 4. CAPI PageView (browser pixel fires in <head>)
+    sendCAPIEvent('PageView');
 });
