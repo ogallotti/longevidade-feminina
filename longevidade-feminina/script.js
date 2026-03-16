@@ -224,8 +224,14 @@ function getCookie(name) {
 function sendCAPIEvent(eventName, userData, customData) {
     const eventId = generateEventId();
 
-    // Browser pixel (with event_id for dedup)
+    // Browser pixel (with event_id + advanced matching for dedup)
     if (typeof fbq !== 'undefined') {
+        if (userData && (userData.email || userData.phone)) {
+            fbq('init', '738966624417507', {
+                em: userData.email || undefined,
+                ph: userData.phone || undefined,
+            });
+        }
         fbq('track', eventName, customData || {}, { eventID: eventId });
     }
 
