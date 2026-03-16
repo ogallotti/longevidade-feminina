@@ -1975,3 +1975,330 @@ a {
         padding: 1.25rem 2rem;
     }
 }
+
+/* ===================================================
+   SECTION: O QUE É O WORKSHOP (Layout Fora da Caixa)
+   =================================================== */
+.section-what {
+    padding: var(--spacing-xl) var(--spacing-md);
+    background: linear-gradient(135deg, #4a1b38 0%, #6b2e54 40%, #8e657f 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.section-what::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(209, 140, 131, 0.15) 0%, transparent 70%);
+    top: -200px;
+    right: -200px;
+    filter: blur(80px);
+    pointer-events: none;
+}
+
+.section-what::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(251, 234, 232, 0.08) 0%, transparent 70%);
+    bottom: -100px;
+    left: -100px;
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.what-container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.what-grid {
+    display: grid;
+    grid-template-columns: 4fr 6fr;
+    gap: var(--spacing-xl);
+    align-items: start;
+}
+
+.what-label-col {
+    position: sticky;
+    top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.what-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: rgba(209, 140, 131, 0.9);
+    font-weight: 500;
+}
+
+.what-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    line-height: 1.1;
+    color: #fbeae8;
+}
+
+.what-title-accent {
+    color: var(--color-accent);
+    font-style: italic;
+}
+
+.what-accent-line {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-accent), transparent);
+    border-radius: 2px;
+}
+
+.what-content-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.what-lead {
+    font-size: clamp(1.15rem, 1.4vw, 1.35rem);
+    line-height: 1.8;
+    color: rgba(251, 234, 232, 0.9);
+}
+
+.what-lead strong {
+    color: #fbeae8;
+    font-weight: 500;
+}
+
+.what-body {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(251, 234, 232, 0.7);
+}
+
+.what-body strong {
+    color: rgba(251, 234, 232, 0.95);
+    font-weight: 500;
+}
+
+.what-pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.what-pillar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    transition: all 0.4s var(--ease-elegant);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.what-pillar:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(209, 140, 131, 0.3);
+    transform: translateY(-3px);
+}
+
+.pillar-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(209, 140, 131, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-accent);
+}
+
+.what-pillar span {
+    font-size: 0.95rem;
+    color: rgba(251, 234, 232, 0.9);
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+@media (max-width: 1024px) {
+    .what-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .what-label-col {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .what-pillars {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===================================================
+   SECTION: DEPOIMENTOS MARQUEE (Ticker Infinito)
+   =================================================== */
+.section-testimonials-marquee {
+    padding: var(--spacing-lg) 0;
+    background: var(--color-bg);
+    overflow: hidden;
+    position: relative;
+}
+
+.testimonials-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--spacing-md);
+    padding: 0 var(--spacing-md);
+}
+
+.testimonials-marquee-title {
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    line-height: 1.3;
+    color: var(--color-text);
+}
+
+.marquee-track {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+}
+
+.marquee-inner {
+    display: flex;
+    gap: 1.5rem;
+    width: max-content;
+    animation: marqueeScroll 40s linear infinite;
+}
+
+.marquee-inner img {
+    height: 380px;
+    width: auto;
+    border-radius: 16px;
+    flex-shrink: 0;
+    object-fit: cover;
+    box-shadow: 0 8px 30px rgba(74, 27, 56, 0.08);
+    transition: transform 0.4s var(--ease-elegant);
+}
+
+.marquee-inner img:hover {
+    transform: scale(1.03);
+}
+
+@keyframes marqueeScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .marquee-inner img {
+        height: 280px;
+    }
+
+    .marquee-inner {
+        gap: 1rem;
+    }
+}
+
+/* ===================================================
+   URGENCY BAR (Barra de Urgência do Lote)
+   =================================================== */
+.urgency-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 260px;
+}
+
+.urgency-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(74, 27, 56, 0.1);
+    border-radius: 100px;
+    overflow: hidden;
+    position: relative;
+}
+
+.urgency-bar-fill {
+    height: 100%;
+    width: var(--fill, 60%);
+    background: linear-gradient(90deg, var(--color-accent), #e85d4a);
+    border-radius: 100px;
+    position: relative;
+    animation: urgencyPulse 2s ease-in-out infinite;
+}
+
+.urgency-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+    animation: urgencyShimmer 2s ease-in-out infinite;
+}
+
+@keyframes urgencyPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+@keyframes urgencyShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.urgency-label {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.02em;
+}
+
+.urgency-label strong {
+    color: var(--color-accent-dark);
+    font-weight: 600;
+}
+
+/* Urgency bar na seção de oferta (tema escuro) */
+.urgency-bar-offer {
+    margin-top: 1.5rem;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.urgency-bar-offer .urgency-bar {
+    background: rgba(251, 234, 232, 0.15);
+}
+
+.urgency-bar-offer .urgency-label {
+    color: rgba(251, 234, 232, 0.5);
+    text-align: center;
+}
+
+.urgency-bar-offer .urgency-label strong {
+    color: var(--color-accent);
+}

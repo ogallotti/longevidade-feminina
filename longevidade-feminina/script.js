@@ -371,6 +371,39 @@ function showFeedback(el, message, type) {
     el.style.display = 'block';
 }
 
+/* --- Marquee Infinite Scroll --- */
+function initMarquee() {
+    const inner = document.querySelector('.marquee-inner');
+    if (!inner) return;
+    // Duplicate items for seamless loop
+    const items = inner.innerHTML;
+    inner.innerHTML = items + items;
+}
+
+/* --- Smooth Scroll for CTAs --- */
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            // Skip if it has a data-modal attribute (modal triggers)
+            if (this.hasAttribute('data-modal')) return;
+
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const target = document.querySelector(targetId);
+            if (!target) return;
+
+            e.preventDefault();
+
+            if (window.lenis) {
+                lenis.scrollTo(target, { offset: 0, duration: 1.5 });
+            } else {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+}
+
 /* --- Initialization --- */
 document.addEventListener('DOMContentLoaded', () => {
     // 1. AOS
@@ -388,4 +421,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initPhoneInput();
     initForms();
     initFAQ();
+
+    // 3. Marquee & Smooth Scroll
+    initMarquee();
+    initSmoothScroll();
 });
