@@ -263,7 +263,7 @@ function sendCAPIEvent(eventName, userData, customData) {
    PRE-CHECKOUT MODAL & FORM
    ============================================ */
 
-const CHECKOUT_URL = 'https://pay.hotmart.com/B104892964H?checkoutMode=10';
+const CHECKOUT_URL = 'https://pay.hotmart.com/B104892964H?off=yn8wx4ge&checkoutMode=10';
 
 // Temp email domains blocklist
 const tempEmailDomains = [
@@ -396,7 +396,7 @@ function initForms() {
                     return;
                 }
 
-                sendCAPIEvent('Lead', { email, phone: telefone }, { currency: 'BRL', value: 47.00 });
+                sendCAPIEvent('Lead', { email, phone: telefone }, { currency: 'BRL', value: 50.00 });
                 if (typeof dataLayer !== 'undefined') dataLayer.push({ event: 'generate_lead' });
 
                 const params = new URLSearchParams(window.location.search);
@@ -461,6 +461,77 @@ function initSmoothScroll() {
     });
 }
 
+/* --- Dynamic Urgency Bar --- */
+function initUrgencyBars() {
+    // Deadlines: Tue 9:30 AM and Fri 9:30 AM (BRT = UTC-3)
+    // Each cycle: 33% → 99%
+    const now = new Date();
+
+    // Find the next Tuesday and Friday 9:30 BRT deadlines
+    function getNextDeadlines() {
+        const deadlines = [];
+        const d = new Date(now);
+        // Look ahead 14 days to find next Tue and Fri
+        for (let i = 0; i < 14; i++) {
+            const check = new Date(d);
+            check.setDate(d.getDate() + i);
+            const day = check.getDay(); // 0=Sun, 2=Tue, 5=Fri
+            if (day === 2 || day === 5) {
+                const deadline = new Date(check);
+                deadline.setHours(9, 30, 0, 0); // 9:30 local time
+                if (deadline > now) {
+                    deadlines.push(deadline);
+                }
+            }
+            if (deadlines.length >= 2) break;
+        }
+        return deadlines;
+    }
+
+    // Find the previous deadline (start of current cycle)
+    function getPreviousDeadline() {
+        const d = new Date(now);
+        for (let i = 0; i < 14; i++) {
+            const check = new Date(d);
+            check.setDate(d.getDate() - i);
+            const day = check.getDay();
+            if (day === 2 || day === 5) {
+                const deadline = new Date(check);
+                deadline.setHours(9, 30, 0, 0);
+                if (deadline <= now) {
+                    return deadline;
+                }
+            }
+        }
+        // Fallback: 3 days ago
+        const fallback = new Date(now);
+        fallback.setDate(fallback.getDate() - 3);
+        return fallback;
+    }
+
+    const nextDeadlines = getNextDeadlines();
+    const currentDeadline = nextDeadlines[0];
+    const cycleStart = getPreviousDeadline();
+
+    const totalDuration = currentDeadline - cycleStart;
+    const elapsed = now - cycleStart;
+    const progress = Math.min(Math.max(elapsed / totalDuration, 0), 1);
+
+    // Map progress 0→1 to 33%→99%
+    const MIN_FILL = 33;
+    const MAX_FILL = 99;
+    const fillPercent = Math.round(MIN_FILL + progress * (MAX_FILL - MIN_FILL));
+
+    // Update all urgency bars
+    document.querySelectorAll('.urgency-bar-fill').forEach(bar => {
+        bar.style.setProperty('--fill', fillPercent + '%');
+    });
+
+    document.querySelectorAll('.urgency-label').forEach(label => {
+        label.innerHTML = `Lote 02 — <strong>${fillPercent}% vendido</strong>`;
+    });
+}
+
 /* --- Initialization --- */
 document.addEventListener('DOMContentLoaded', () => {
     // 1. AOS
@@ -479,9 +550,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initForms();
     initFAQ();
 
-    // 3. Marquee & Smooth Scroll
+    // 3. Marquee, Smooth Scroll & Urgency
     initMarquee();
     initSmoothScroll();
+    initUrgencyBars();
 
     // 4. CAPI PageView (browser pixel fires in <head>)
     sendCAPIEvent('PageView');
